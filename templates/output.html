@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Output</title>
+</head>
+<body>
+    <h1>Output</h1>
+    <h2>Filename: {{ output_filename }}</h2>
+    <h2>t value: {{ t }}</h2>
+    <img src="{{ url_for('static', filename=output_filename) }}" alt="Output Image">
+</body>
+</html>
+
+<script>
+    // Open the output page in a new tab
+    window.open(window.location.href, '_blank');
+</script>

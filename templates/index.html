@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histeresis Grafiği</title>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+    <div id="message"></div>
+    <div id="tValue"></div>
+    <img id="outputImage" src="{{ url_for('static', filename=image_path) }}" alt="Output Image">
+
+    <script>
+        $(document).ready(function(){
+            $("form").on("submit", function(event){
+                event.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '/upload',
+                    type: 'POST',
+                    data: formData,
+                    success: function(data) {
+                        $('#message').text(data.message);
+                        $('#tValue').text("t değeri: " + data.t);
+                        $('#outputImage').attr("src", "/output.png");
+                        alert("t değeri: " + data.t); // Display t value in an alert
+                        location.reload(); // Reload the page
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            });
+        });
+    </script>
+</body>
+</html>
